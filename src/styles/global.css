@@ -117,3 +117,21 @@ footer a{color:var(--ink-faint);}
 .theme-toggle{position:fixed;top:18px;right:20px;z-index:50;width:34px;height:34px;border-radius:50%;border:1px solid var(--line-strong);background:var(--paper-raised);color:var(--ink-muted);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:border-color .15s ease,color .15s ease;}
 .theme-toggle:hover{border-color:var(--accent);color:var(--accent-ink);}
 @media (max-width:640px){.theme-toggle{top:14px;right:14px;width:30px;height:30px;font-size:13px;}}
+
+/* Portada Priors: descripción a la izquierda, campana de Gauss a la derecha. */
+.masthead{padding:clamp(48px,7vw,96px) 32px;}
+.masthead-inner{
+  max-width:1320px;margin:0 auto;display:grid;
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  align-items:center;gap:clamp(28px,4.5vw,78px);
+  min-height:clamp(470px,65vh,700px);
+}
+.masthead-copy,.masthead-art{min-width:0;}
+.masthead-art{width:100%;}
+.masthead .doc-subtitle{max-width:54ch;}
+.masthead h1.doc-title{font-size:clamp(48px,5vw,76px);}
+@media(max-width:850px){
+  .masthead{padding:55px 22px 48px;}
+  .masthead-inner{grid-template-columns:minmax(0,1fr);gap:36px;min-height:0;}
+  .masthead h1.doc-title{font-size:clamp(46px,9vw,64px);}
+}

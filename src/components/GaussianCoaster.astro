@@ -1,0 +1,74 @@
+---
+/** Portada Priors — Gaussian Coaster v18, sin dependencias ni JavaScript. */
+---
+<div class="coaster-stage" aria-label="Animación de un carrito recorriendo una campana de Gauss">
+  <svg class="coaster-svg" viewBox="0 -115 1000 510" role="img" aria-label="Un stickman cruza la campana de Gauss de izquierda a derecha">
+    <defs><clipPath id="track-window"><rect x="50" y="-115" width="900" height="510" /></clipPath></defs>
+    <line class="baseline" x1="50" y1="315" x2="950" y2="315"/>
+    <path class="track-under" d="M 50 329 C 250 329 330 319 400 124 C 435 29 565 29 600 124 C 670 319 750 329 950 329"/>
+    <path class="track" d="M 50 315 C 250 315 330 305 400 110 C 435 15 565 15 600 110 C 670 305 750 315 950 315" fill="none" stroke="#f4cf4b"/>
+    <circle class="spark" cx="500" cy="17" r="3"/>
+    <circle class="spark" cx="320" cy="278" r="2"/>
+    <g clip-path="url(#track-window)">
+      <g class="coaster-cart">
+        <path class="cart-shell" d="M -26 -28 L 26 -28 L 20 -8 Q 0 1 -20 -8 Z"/>
+        <path class="cart-rim" d="M -27 -29 H 27"/>
+        <circle class="wheel" cx="-14" cy="-4" r="3.5"/>
+        <circle class="wheel" cx="14" cy="-4" r="3.5"/>
+        <g class="stick">
+          <circle cx="0" cy="-68" r="9"/>
+          <path d="M 0 -59 V -29"/>
+          <g class="wind-arms">
+            <g class="arm-left"><path d="M 0 -51 L -16 -65 M -16 -65 L -19 -76"/></g>
+            <g class="arm-right"><path d="M 0 -51 L 16 -65 M 16 -65 L 19 -76"/></g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <div class="coaster-caption" aria-hidden="true">
+    <span>Curva normal · μ = 0</span><span>↑↓ El viaje de los datos</span>
+  </div>
+</div>
+
+<style>
+  .coaster-stage{width:100%;min-width:0;padding:clamp(12px,2.5vw,24px);background:#08090a;border-radius:16px;overflow:hidden;--coaster-yellow:#f4cf4b;}
+  .coaster-svg{display:block;width:100%;height:auto;overflow:hidden;margin-top:10px;}
+  .coaster-caption{display:flex;justify-content:space-between;gap:10px;color:#a8a39b;font:10px/1.4 var(--font-mono,ui-monospace,monospace);letter-spacing:.035em;}
+  .track{fill:none;stroke:#f4cf4b;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 7px rgba(244,207,75,.25));}
+  .track-under{fill:none;stroke:#f4cf4b;stroke-width:1;opacity:.13;}
+  .baseline{stroke:#484235;stroke-dasharray:4 8;stroke-width:1;}
+  .coaster-cart{
+    offset-path:path('M 0 315 L 50 315 C 250 315 330 305 400 110 C 435 15 565 15 600 110 C 670 305 750 315 950 315 L 1000 315');
+    offset-distance:0%;offset-rotate:auto;offset-anchor:0px 0px;
+    animation:ride-gravity 15s linear infinite;
+  }
+  .cart-shell{fill:#f4cf4b;stroke:#08090a;stroke-width:2;}
+  .cart-rim{fill:none;stroke:#fff1a7;stroke-width:3;stroke-linecap:round;}
+  .wheel{fill:#fff;stroke:#fff;stroke-width:1.5;}
+  .stick{stroke:#f7f4e9;fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;}
+  .wind-arms{transform-box:view-box;transform-origin:0px -51px;animation:wind-drag 15s linear infinite;}
+  @keyframes wind-drag{
+    0%{transform:rotate(-12deg)}7%{transform:rotate(-14deg)}
+    28%{transform:rotate(-15deg)}37%{transform:rotate(-7deg)}
+    43%{transform:rotate(0deg)}46%{transform:rotate(-9deg)}
+    49%{transform:rotate(-22deg)}56%{transform:rotate(-20deg)}
+    60%{transform:rotate(-15deg)}66.666%,100%{transform:rotate(-12deg)}
+  }
+  .spark{fill:#f4cf4b;animation:blink 2s ease-in-out infinite;}
+  .spark:nth-of-type(2){animation-delay:.8s;}
+  /* 10 s de recorrido y 5 s fuera de escena; sin frenado en los extremos. */
+  @keyframes ride-gravity{
+    0%{offset-distance:0%}7%{offset-distance:12%}
+    28%{offset-distance:36%}43%{offset-distance:50%}
+    46%{offset-distance:56%}49%{offset-distance:65%}
+    54%{offset-distance:76%}60%{offset-distance:88%}
+    66.666%,100%{offset-distance:100%}
+  }
+  @keyframes blink{0%,100%{opacity:.15}50%{opacity:.7}}
+  @media(prefers-reduced-motion:reduce){
+    .coaster-cart,.spark,.wind-arms{animation:none}
+    .coaster-cart{offset-distance:50%}
+  }
+  @media(max-width:640px){.coaster-stage{padding:8px;border-radius:12px}.coaster-caption{font-size:9px}}
+</style>
