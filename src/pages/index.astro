@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import GaussianCoaster from "../components/GaussianCoaster.astro";
 import { projects } from "../data/projects";
 import { fetchAllBoards } from "../lib/fetchBoard";
 
@@ -12,14 +13,17 @@ const boards = await fetchAllBoards(projects);
 >
   <header class="masthead">
     <div class="masthead-inner">
-      <div class="doc-eyebrow"><span>Investigación abierta</span> · <span>Pre-registrada</span></div>
-      <h1 class="doc-title">Priors</h1>
-      <p class="doc-subtitle">
-        Un lugar para investigación cuantitativa que se compromete con su
-        metodología antes de ver los resultados. Cada proyecto pre-registra
-        su hipótesis, define su benchmark y su criterio de éxito por
-        adelantado, y publica lo que encuentre — funcione o no la hipótesis.
-      </p>
+      <div class="masthead-copy">
+        <div class="doc-eyebrow"><span>Investigación abierta</span> · <span>Pre-registrada</span></div>
+        <h1 class="doc-title">Priors</h1>
+        <p class="doc-subtitle">
+          Un lugar para investigación cuantitativa que se compromete con su
+          metodología antes de ver los resultados. Cada proyecto pre-registra
+          su hipótesis, define su benchmark y su criterio de éxito por
+          adelantado, y publica lo que encuentre — funcione o no la hipótesis.
+        </p>
+      </div>
+      <div class="masthead-art"><GaussianCoaster /></div>
     </div>
   </header>
 
