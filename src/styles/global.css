@@ -314,3 +314,36 @@ tbody td:first-child { color:var(--ink); }
   .masthead h1.doc-title { font-size:clamp(62px,16vw,78px); }
   .hero-statement { font-size:clamp(27px,7vw,33px); }
 }
+
+/* Índice de investigación: composición de revista académica. */
+.research-section .eyebrow { margin-bottom:12px; }
+.research-heading { display:flex; align-items:end; justify-content:space-between; gap:28px; margin-bottom:30px; }
+.research-heading h2 { margin:0; font-size:clamp(30px,3.8vw,43px); line-height:1.18; max-width:17ch; }
+.research-heading p { margin:0; max-width:35ch; color:var(--ink-muted); font-size:13px; line-height:1.8; }
+.research-list { border-top:3px double var(--line-strong); }
+.research-entry { display:grid; grid-template-columns:125px minmax(0,1fr); column-gap:32px; padding:32px 0 38px; border-bottom:1px solid var(--line-strong); }
+.research-index { display:flex; flex-direction:column; gap:5px; font:10px/1.5 var(--font-mono); color:var(--ink-faint); letter-spacing:.065em; }
+.research-index span:first-child { font:500 clamp(39px,5.5vw,64px)/1 var(--font-display); letter-spacing:-.05em; color:var(--ink); }
+.research-meta { display:flex; align-items:center; flex-wrap:wrap; gap:8px 18px; margin:0 0 15px; font:10px/1.5 var(--font-mono); text-transform:uppercase; letter-spacing:.045em; color:var(--ink-faint); }
+.research-meta span+span::before { content:"/"; margin-right:18px; color:var(--line-strong); }
+.research-content h3 { font:650 clamp(26px,3.25vw,39px)/1.2 var(--font-display); letter-spacing:-.027em; margin:0 0 15px; text-wrap:balance; overflow-wrap:anywhere; }
+.research-abstract { max-width:68ch; margin:0; color:var(--ink-muted); font:400 14px/1.9 var(--font-body); }
+.research-links { display:flex; flex-wrap:wrap; align-items:center; gap:12px 30px; margin-top:26px; padding-top:17px; border-top:1px solid var(--line); }
+.research-links a { display:inline-flex; align-items:center; gap:7px; color:var(--ink); font:500 11px/1.6 var(--font-mono); text-decoration:none; text-underline-offset:4px; }
+.research-links a+ a { color:var(--ink-muted); }
+.research-links a:hover, .research-links a:focus-visible { text-decoration:underline; }
+@media(max-width:700px) {
+  .research-heading { display:block; }
+  .research-heading p { max-width:60ch; margin-top:14px; }
+  .research-entry { grid-template-columns:58px minmax(0,1fr); column-gap:18px; padding:26px 0 31px; }
+  .research-index span:first-child { font-size:39px; }
+  .research-index { font-size:9px; }
+  .research-content h3 { font-size:clamp(23px,5.5vw,34px); }
+  .research-meta { gap:7px 11px; }
+  .research-meta span+span::before { margin-right:11px; }
+}
+@media(max-width:370px) {
+  .research-entry { grid-template-columns:1fr; row-gap:17px; }
+  .research-index { flex-direction:row; align-items:baseline; gap:10px; }
+  .research-index span:first-child { font-size:34px; }
+}
