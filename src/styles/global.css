@@ -237,7 +237,7 @@ footer a{color:var(--ink-faint);}
   --green-wash:rgba(63,80,72,.09);
   --red:#715653;
   --red-wash:rgba(113,86,83,.08);
-  --font-display:"Bodoni Moda","Didot","Times New Roman",serif;
+  --font-display:"Source Serif Site",Georgia,"Iowan Old Style",serif;
   --font-body:"Libre Baskerville","Source Serif Site",Georgia,serif;
 }
 @media (prefers-color-scheme:dark) {
@@ -264,7 +264,7 @@ body { font-size:15px; line-height:1.85; }
 .masthead { border-top:4px double var(--line-strong); border-bottom:3px double var(--line-strong); }
 .masthead-inner { gap:clamp(32px,4.8vw,80px); }
 .masthead h1.doc-title {
-  font-weight:500;
+  font-weight:650;
   letter-spacing:-.065em;
   font-size:clamp(70px,8.5vw,128px);
   line-height:1.08;
@@ -272,7 +272,7 @@ body { font-size:15px; line-height:1.85; }
 }
 .hero-period, .hero-statement em { color:var(--ink); }
 .hero-statement {
-  font-weight:400;
+  font-weight:600;
   font-size:clamp(26px,2.85vw,41px);
   line-height:1.24;
   letter-spacing:-.025em;
@@ -287,15 +287,15 @@ body { font-size:15px; line-height:1.85; }
 .hero-art-label { border-bottom:1px solid var(--line); padding-bottom:11px; font-size:10px; }
 .masthead-art .coaster-stage { border-radius:1px; border:1px solid var(--line); }
 .eyebrow { color:var(--ink-faint); }
-h2 { font-weight:500; letter-spacing:-.022em; line-height:1.22; }
-h3 { font-weight:500; }
-.method-heading h2 { font-weight:500; font-size:clamp(32px,3.55vw,44px); }
-.method-step h3 { font-weight:500; font-size:clamp(22px,2.1vw,27px); }
+h2 { font-weight:650; letter-spacing:-.022em; line-height:1.22; }
+h3 { font-weight:650; }
+.method-heading h2 { font-weight:650; font-size:clamp(32px,3.55vw,44px); }
+.method-step h3 { font-weight:650; font-size:clamp(22px,2.1vw,27px); }
 .method-intro,.method-step p,.card p { line-height:1.85; }
 .method-index { color:var(--ink-faint); }
 section { border-top-color:var(--line-strong); }
 .card-grid { gap:28px 36px; }
-.card h3 { font-size:22px; font-weight:500; letter-spacing:-.015em; }
+.card h3 { font-size:22px; font-weight:650; letter-spacing:-.015em; }
 .card .card-tag { color:var(--ink-faint); }
 .card:hover h3 { color:var(--ink); text-decoration:underline; text-decoration-color:var(--line-strong); text-underline-offset:5px; }
 .pill--confirmed { color:var(--ink); border-bottom-color:var(--ink); }
