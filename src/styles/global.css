@@ -46,7 +46,7 @@
   --green:#2F7A4F;--green-wash:rgba(47,122,79,0.10);--red:#B33A3A;--red-wash:rgba(179,58,58,0.09);}
 
 *{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
+html,body{margin:0;padding:0;overflow-x:clip;}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased;}
 ::selection{background:var(--accent-wash);}
 a{color:var(--accent-ink);text-decoration-thickness:1px;}
@@ -403,9 +403,8 @@ main > section + section::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 50%;
+  left: calc(50% - 50vw);
   width: 100vw;
-  transform: translateX(-50%);
   border-top: 1px solid var(--line-strong);
   pointer-events: none;
 }
