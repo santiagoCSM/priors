@@ -14,16 +14,24 @@ const boards = await fetchAllBoards(projects);
   <header class="masthead">
     <div class="masthead-inner">
       <div class="masthead-copy">
-        <div class="doc-eyebrow"><span>Investigación abierta</span> · <span>Pre-registrada</span></div>
-        <h1 class="doc-title">Priors</h1>
+        <div class="doc-eyebrow"><span class="hero-dot" aria-hidden="true"></span><span>Investigación cuantitativa</span><span aria-hidden="true">/</span><span>Abierta y pre-registrada</span></div>
+        <h1 class="doc-title">Priors<span class="hero-period">.</span></h1>
+        <p class="hero-statement">Primero la hipótesis.<br /><em>Después la evidencia.</em></p>
         <p class="doc-subtitle">
-          Un lugar para investigación cuantitativa que se compromete con su
-          metodología antes de ver los resultados. Cada proyecto pre-registra
-          su hipótesis, define su benchmark y su criterio de éxito por
-          adelantado, y publica lo que encuentre — funcione o no la hipótesis.
+          Un espacio para poner a prueba ideas con reglas claras: cada proyecto define
+          su hipótesis, su referencia de comparación y sus criterios de éxito antes
+          de analizar los resultados. Los hallazgos se publican, confirmen o no lo esperado.
         </p>
+        <div class="hero-actions">
+          <a class="hero-primary" href="#proyectos">Explorar investigaciones <span aria-hidden="true">↗</span></a>
+          <a class="hero-secondary" href="#estado">Consultar evidencia <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="hero-footnote">Hipótesis claras <span aria-hidden="true">·</span> Métodos verificables <span aria-hidden="true">·</span> Resultados abiertos</p>
       </div>
-      <div class="masthead-art"><GaussianCoaster /></div>
+      <div class="masthead-art">
+        <div class="hero-art-label"><span>FIG. 01</span><span>UNA DISTRIBUCIÓN, MUCHOS RESULTADOS</span></div>
+        <GaussianCoaster />
+      </div>
     </div>
   </header>
 
