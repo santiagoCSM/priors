@@ -65,17 +65,33 @@ const boards = await fetchAllBoards(projects);
       </ol>
     </section>
 
-    <section id="proyectos">
-      <div class="eyebrow">Proyectos</div>
-      <h2>Investigaciones en curso</h2>
-      <div class="card-grid">
+    <section id="proyectos" class="research-section" aria-labelledby="research-title">
+      <div class="eyebrow">Investigaciones / Índice</div>
+      <div class="research-heading">
+        <h2 id="research-title">Artículos de investigación</h2>
+        <p>Un registro abierto de hipótesis, métodos y resultados. Cada artículo tiene su propia investigación y repositorio de origen.</p>
+      </div>
+      <div class="research-list">
         {
-          projects.map((p) => (
-            <a class="card" href={p.siteUrl}>
-              <span class="card-tag">Investigación activa</span>
-              <h3>{p.name}</h3>
-              <p>{p.description}</p>
-            </a>
+          projects.map((p, index) => (
+            <article class="research-entry" aria-labelledby={`research-title-${p.slug}`}>
+              <div class="research-index" aria-hidden="true">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>ARTÍCULO</span>
+              </div>
+              <div class="research-content">
+                <div class="research-meta">
+                  <span>Investigación cuantitativa</span>
+                  <span>Proyecto abierto</span>
+                </div>
+                <h3 id={`research-title-${p.slug}`}>{p.name.replace(/_/g, " ")}</h3>
+                <p class="research-abstract">{p.description}</p>
+                <div class="research-links">
+                  <a href={p.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
+                  <a href={`https://github.com/${p.repo}`} target="_blank" rel="noopener noreferrer">Ver repositorio <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </article>
           ))
         }
       </div>
