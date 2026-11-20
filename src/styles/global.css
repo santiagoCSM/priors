@@ -393,3 +393,19 @@ tbody td:first-child { color:var(--ink); }
   .evidence-record { grid-template-columns:30px minmax(0,1fr); gap:11px; padding:24px 0 27px; }
   .evidence-record-number { font-size:20px; }
 }
+
+/* Separadores editoriales a ancho completo entre secciones de contenido. */
+main > section {
+  position: relative;
+  border-top: 0;
+}
+main > section + section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-top: 1px solid var(--line-strong);
+  pointer-events: none;
+}
