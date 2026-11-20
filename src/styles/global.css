@@ -135,3 +135,60 @@ footer a{color:var(--ink-faint);}
   .masthead-inner{grid-template-columns:minmax(0,1fr);gap:36px;min-height:0;}
   .masthead h1.doc-title{font-size:clamp(46px,9vw,64px);}
 }
+
+
+/* Portada editorial de Priors: conserva intacta la animación GaussianCoaster. */
+.masthead { border-bottom:1px solid var(--line); }
+.masthead-inner { grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr); gap:clamp(32px,4vw,76px); }
+.masthead .doc-eyebrow {
+  align-items:center;
+  gap:10px;
+  margin-bottom:25px;
+  font-size:10.5px;
+  letter-spacing:.07em;
+}
+.hero-dot { flex:none; width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 4px var(--green-wash); }
+.masthead h1.doc-title {
+  font-size:clamp(61px,7vw,108px);
+  font-weight:600;
+  letter-spacing:-.055em;
+  line-height:.97;
+  margin-bottom:22px;
+}
+.hero-period { color:var(--accent); }
+.hero-statement {
+  font-family:var(--font-display);
+  font-size:clamp(25px,2.8vw,39px);
+  line-height:1.19;
+  letter-spacing:-.025em;
+  max-width:19ch;
+  margin-bottom:24px;
+}
+.hero-statement em { color:var(--accent-ink); font-weight:400; }
+.masthead .doc-subtitle { max-width:51ch; font-size:clamp(16px,1.5vw,18px); line-height:1.72; }
+.hero-actions { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; margin:29px 0 0; font:600 11px/1.5 var(--font-mono); }
+.hero-actions a { text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:13px; min-height:44px; transition:transform .2s ease,background .2s ease,color .2s ease,border-color .2s ease; }
+.hero-actions a:hover { transform:translateY(-2px); }
+.hero-primary { background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:10px 16px; border-radius:4px; }
+.hero-primary:hover { background:var(--accent-ink); border-color:var(--accent-ink); color:var(--paper-raised); }
+.hero-secondary { color:var(--ink-muted); padding:10px 0; border-bottom:1px solid var(--line-strong); }
+.hero-secondary:hover { color:var(--accent-ink); border-color:var(--accent); }
+.hero-footnote { font:10px/1.7 var(--font-mono); color:var(--ink-faint); margin:22px 0 0; }
+.hero-art-label { display:flex; align-items:center; justify-content:space-between; gap:12px; font:10px/1.4 var(--font-mono); letter-spacing:.045em; color:var(--ink-faint); margin-bottom:12px; }
+.hero-art-label span:last-child { text-align:right; }
+@media(max-width:850px){
+  .masthead-inner { grid-template-columns:minmax(0,1fr); gap:32px; }
+  .masthead h1.doc-title { font-size:clamp(58px,10vw,82px); }
+  .masthead .doc-subtitle { max-width:62ch; }
+}
+@media(max-width:480px){
+  .masthead .doc-eyebrow { gap:8px; font-size:9px; }
+  .hero-statement { font-size:clamp(25px,7vw,33px); }
+  .hero-actions { align-items:stretch; }
+  .hero-primary { width:100%; }
+  .hero-footnote { font-size:9px; }
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-actions a { transition:none; }
+  .hero-actions a:hover { transform:none; }
+}
