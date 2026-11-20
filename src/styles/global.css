@@ -192,3 +192,27 @@ footer a{color:var(--ink-faint);}
   .hero-actions a { transition:none; }
   .hero-actions a:hover { transform:none; }
 }
+
+/* Metodología — tres pasos editoriales, sin afectar la portada. */
+.methodology { padding-top:clamp(52px,7vw,86px); }
+.method-heading { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.82fr); align-items:end; gap:22px 42px; margin-bottom:34px; }
+.method-heading h2 { font-size:clamp(27px,3.1vw,38px); max-width:19ch; margin:0; line-height:1.17; letter-spacing:-.025em; }
+.method-intro { color:var(--ink-muted); font-size:15.5px; line-height:1.7; margin:0; max-width:43ch; }
+.method-grid { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--line-strong); }
+.method-step { min-width:0; padding:25px 26px 2px 0; }
+.method-step + .method-step { border-left:1px solid var(--line); padding-left:26px; }
+.method-index { display:block; font:600 10.5px/1.5 var(--font-mono); letter-spacing:.055em; color:var(--accent-ink); margin-bottom:22px; }
+.method-step h3 { font-size:clamp(20px,2.15vw,26px); font-weight:600; letter-spacing:-.02em; line-height:1.24; margin:0 0 13px; max-width:19ch; }
+.method-step p { color:var(--ink-muted); font-size:14.5px; line-height:1.7; margin:0; max-width:35ch; }
+@media(max-width:800px) {
+  .method-heading { grid-template-columns:1fr; gap:15px; margin-bottom:25px; }
+  .method-intro { max-width:64ch; }
+}
+@media(max-width:640px) {
+  .method-grid { grid-template-columns:1fr; }
+  .method-step { padding:23px 0; }
+  .method-step + .method-step { padding-left:0; border-left:0; border-top:1px solid var(--line); }
+  .method-step:last-child { padding-bottom:0; }
+  .method-index { margin-bottom:11px; }
+  .method-step h3,.method-step p { max-width:none; }
+}
