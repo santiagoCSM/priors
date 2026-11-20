@@ -5,6 +5,10 @@ import { projects } from "../data/projects";
 import { fetchAllBoards } from "../lib/fetchBoard";
 
 const boards = await fetchAllBoards(projects);
+const validBoards = boards.filter((board) => !board.error);
+const evidenceRows = validBoards.flatMap((board) => board.rows);
+const pendingCount = evidenceRows.filter((row) => row.kind === "pending").length;
+const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confirmed").length;
 ---
 
 <BaseLayout
@@ -97,56 +101,84 @@ const boards = await fetchAllBoards(projects);
       </div>
     </section>
 
-    <section id="estado">
-      <div class="eyebrow">Estado agregado</div>
-      <h2>En qué nivel de evidencia está cada hipótesis</h2>
-      <p>
-        Jalado en cada build directamente del <code>board.md</code> de cada
-        proyecto — nunca se transcribe a mano, así que nunca se desactualiza
-        respecto al repositorio original.
-      </p>
+    <section id="estado" class="evidence-section" aria-labelledby="evidence-title">
+      <div class="eyebrow">Archivo / Evidencia</div>
+      <div class="evidence-heading">
+        <h2 id="evidence-title">Registro de hipótesis y resultados</h2>
+        <p>
+          Un índice de la evidencia documentada por cada investigación.
+          Los estados provienen del archivo <code>board.md</code> de cada repositorio
+          al construir esta página.
+        </p>
+      </div>
 
-      {
-        boards.map((b) =>
-          b.error ? (
-            <p>
-              <em>
-                No se pudo leer el tablero de {b.project.name}: {b.error}
-              </em>
+      {validBoards.length > 0 && (
+        <div class="evidence-summary" aria-label="Resumen del estado de las investigaciones">
+          <div class="evidence-stat">
+            <span class="evidence-stat-value">{String(evidenceRows.length).padStart(2, "0")}</span>
+            <span class="evidence-stat-label">Hipótesis registradas</span>
+          </div>
+          <div class="evidence-stat">
+            <span class="evidence-stat-value">{String(reportedConfirmedCount).padStart(2, "0")}</span>
+            <span class="evidence-stat-label">Confirmaciones reportadas*</span>
+          </div>
+          <div class="evidence-stat">
+            <span class="evidence-stat-value">{String(pendingCount).padStart(2, "0")}</span>
+            <span class="evidence-stat-label">Hipótesis pendientes</span>
+          </div>
+        </div>
+      )}
+
+      {boards.map((b, projectIndex) => (
+        <div class="evidence-project">
+          <div class="evidence-project-head">
+            <div>
+              <span class="evidence-project-kicker">REGISTRO {String(projectIndex + 1).padStart(2, "0")} / INVESTIGACIÓN</span>
+              <h3>{b.project.name.replace(/_/g, " ")}</h3>
+            </div>
+            <a
+              href={`https://github.com/${b.project.repo}/blob/${b.project.branch}/${b.project.boardPath}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >Consultar fuente original ↗</a>
+          </div>
+          {b.error ? (
+            <p class="evidence-error" role="status">
+              No se pudo consultar este registro durante la compilación ({b.error}).
+              Los resultados siguen disponibles en su repositorio de origen.
             </p>
           ) : (
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Proyecto</th>
-                    <th>Hipótesis</th>
-                    <th>Estado</th>
-                    <th>Nivel</th>
-                    <th>Evidencia clave</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {b.rows.map((row) => (
-                    <tr>
-                      <td>{b.project.name}</td>
-                      <td>{row.hipotesis}</td>
-                      <td>
-                        <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
-                        {row.estado !== row.shortLabel && (
-                          <p class="estado-detail">{row.estado}</p>
-                        )}
-                      </td>
-                      <td>{row.nivel}</td>
-                      <td>{row.evidencia}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )
-        )
-      }
+            <ol class="evidence-records">
+              {b.rows.map((row, index) => (
+                <li class="evidence-record">
+                  <div class="evidence-record-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+                  <div class="evidence-record-body">
+                    <div class="evidence-record-topline">
+                      <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
+                      <span class="evidence-level">NIVEL DE EVIDENCIA <strong>{row.nivel || "—"}</strong></span>
+                    </div>
+                    <h4>{row.hipotesis}</h4>
+                    {row.estado !== row.shortLabel && <p class="evidence-qualification">{row.estado}</p>}
+                    <div class="evidence-record-details">
+                      <div>
+                        <span class="evidence-detail-label">Evidencia clave</span>
+                        <p>{row.evidencia || "Sin evidencia publicada todavía."}</p>
+                      </div>
+                      {row.proximoPaso && (
+                        <div>
+                          <span class="evidence-detail-label">Próximo paso</span>
+                          <p>{row.proximoPaso}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      ))}
+      <p class="evidence-disclaimer">* Las clasificaciones se muestran tal como las reporta cada investigación y no equivalen necesariamente a validación externa o definitiva. Si una hipótesis tiene confirmación local, sus reservas y limitaciones se detallan en el registro correspondiente.</p>
     </section>
   </main>
 
