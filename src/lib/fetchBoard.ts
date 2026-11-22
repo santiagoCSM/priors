@@ -1,6 +1,6 @@
 import type { Project } from "../data/projects";
 
-export type BoardKind = "confirmed" | "weak" | "pending" | "rejected" | "moredata";
+export type BoardKind = "confirmed" | "confirmed-local" | "weak" | "pending" | "rejected" | "moredata" | "unknown";
 
 export interface BoardRow {
   hipotesis: string;
@@ -14,10 +14,12 @@ export interface BoardRow {
 
 const SHORT_LABELS: Record<BoardKind, string> = {
   confirmed: "Confirmada",
+  "confirmed-local": "Confirmada localmente",
   weak: "Evidencia débil",
   pending: "Pendiente",
   rejected: "Rechazada",
   moredata: "Requiere más datos",
+  unknown: "Sin clasificar",
 };
 
 export interface BoardResult {
@@ -26,70 +28,91 @@ export interface BoardResult {
   error: string | null;
 }
 
-function stripMd(s: string): string {
-  return s.replace(/\*\*/g, "").trim();
+function stripMd(value: string): string {
+  return value.replace(/\*\*/g, "").replace(/\\\|/g, "|").trim();
 }
 
-function classify(estado: string): BoardRow["kind"] {
-  const s = estado.toLowerCase();
-  if (s.includes("confirmada")) return "confirmed";
-  if (s.includes("rechazada")) return "rejected";
-  if (s.includes("pendiente")) return "pending";
-  if (s.includes("evidencia débil") || s.includes("requiere más datos")) return "weak";
-  return "moredata";
+function normalize(value: string): string {
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
 }
 
-function parseBoardTable(markdown: string): BoardRow[] {
-  const lines = markdown.split("\n");
-  const tableLines: string[] = [];
-  let inTable = false;
-  for (const line of lines) {
-    const isTableLine = /^\s*\|/.test(line);
-    if (isTableLine) {
-      inTable = true;
-      tableLines.push(line);
-    } else if (inTable) {
-      break; // stop at the first table's end
+function classify(estado: string): BoardKind {
+  const value = normalize(estado);
+  if (/^confirmad[ao]s?\s+localmente\b/.test(value)) return "confirmed-local";
+  if (/^confirmad[ao]s?\b/.test(value)) return "confirmed";
+  if (/^rechazad[ao]s?\b/.test(value)) return "rejected";
+  if (/^requiere(?:n)? mas datos\b/.test(value) || /^datos insuficientes\b/.test(value)) return "moredata";
+  if (/^evidencia debil\b/.test(value)) return "weak";
+  if (/^pendiente\b/.test(value)) return "pending";
+  return "unknown";
+}
+
+function splitTableRow(line: string): string[] {
+  return line.trim().replace(/^\|/, "").replace(/\|$/, "").split(/(?<!\\)\|/).map(stripMd);
+}
+
+export function parseBoardTable(markdown: string): BoardRow[] {
+  const lines = markdown.split(/\r?\n/);
+  const expected = ["hipotesis", "estado", "nivel", "evidencia clave", "proximo paso"];
+
+  for (let i = 0; i < lines.length - 2; i++) {
+    if (!lines[i].trim().startsWith("|")) continue;
+
+    const header = splitTableRow(lines[i]).map(normalize);
+    const positions = expected.map((column) => header.indexOf(column));
+    if (positions.some((position) => position < 0)) continue;
+
+    const separator = splitTableRow(lines[i + 1]);
+    if (separator.length !== header.length ||
+        !separator.every((cell) => /^:?-{3,}:?$/.test(cell.replace(/\s/g, "")))) continue;
+
+    const rows: BoardRow[] = [];
+    for (let lineIndex = i + 2; lineIndex < lines.length; lineIndex++) {
+      if (!lines[lineIndex].trim().startsWith("|")) break;
+
+      const cells = splitTableRow(lines[lineIndex]);
+      const [hipotesis, estado, nivel, evidencia, proximoPaso] =
+        positions.map((position) => cells[position] ?? "");
+
+      if (!hipotesis || !estado) continue;
+      const kind = classify(estado);
+      rows.push({
+        hipotesis,
+        estado,
+        nivel,
+        evidencia,
+        proximoPaso,
+        kind,
+        shortLabel: SHORT_LABELS[kind],
+      });
     }
+    return rows;
   }
-  if (tableLines.length < 3) return [];
-
-  const parseRow = (line: string) =>
-    line
-      .trim()
-      .replace(/^\|/, "")
-      .replace(/\|$/, "")
-      .split("|")
-      .map((c) => stripMd(c));
-
-  // tableLines[0] = header, tableLines[1] = separator, rest = data rows
-  return tableLines.slice(2).map((line) => {
-    const [hipotesis, estado, nivel, evidencia, proximoPaso] = parseRow(line);
-    const kind = classify(estado ?? "");
-    return {
-      hipotesis: hipotesis ?? "",
-      estado: estado ?? "",
-      nivel: nivel ?? "",
-      evidencia: evidencia ?? "",
-      proximoPaso: proximoPaso ?? "",
-      kind,
-      shortLabel: SHORT_LABELS[kind],
-    };
-  });
+  return [];
 }
 
 export async function fetchBoard(project: Project): Promise<BoardResult> {
-  const url = `https://raw.githubusercontent.com/${project.repo}/${project.branch}/${project.boardPath}`;
+  const url = "https://raw.githubusercontent.com/" + project.repo + "/" +
+    project.branch + "/" + project.boardPath;
+
   try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      return { project, rows: [], error: `HTTP ${res.status} al leer ${url}` };
+    const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(15000) });
+    if (!response.ok) {
+      return { project, rows: [], error: "HTTP " + response.status + " al leer " + url };
     }
-    const markdown = await res.text();
-    const rows = parseBoardTable(markdown);
-    return { project, rows, error: rows.length ? null : "No se encontró una tabla en board.md" };
-  } catch (err) {
-    return { project, rows: [], error: err instanceof Error ? err.message : String(err) };
+
+    const rows = parseBoardTable(await response.text());
+    return {
+      project,
+      rows,
+      error: rows.length ? null : "No se encontró una tabla válida de hipótesis en board.md",
+    };
+  } catch (error) {
+    return {
+      project,
+      rows: [],
+      error: error instanceof Error ? error.message : String(error),
+    };
   }
 }
 
