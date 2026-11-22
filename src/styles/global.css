@@ -261,7 +261,7 @@ footer a{color:var(--ink-faint);}
   --red:#715653;--red-wash:rgba(113,86,83,.08);
 }
 body { font-size:15px; line-height:1.85; }
-.masthead { border-top:4px double var(--line-strong); border-bottom:3px double var(--line-strong); }
+.masthead { border-top:0; border-bottom:3px double var(--line-strong); }
 .masthead-inner { gap:clamp(32px,4.8vw,80px); }
 .masthead h1.doc-title {
   font-weight:650;
