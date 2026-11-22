@@ -299,6 +299,7 @@ section { border-top-color:var(--line-strong); }
 .card .card-tag { color:var(--ink-faint); }
 .card:hover h3 { color:var(--ink); text-decoration:underline; text-decoration-color:var(--line-strong); text-underline-offset:5px; }
 .pill--confirmed { color:var(--ink); border-bottom-color:var(--ink); }
+.pill--confirmed-local { color:var(--ink); border-bottom:2px dotted var(--ink-muted); }
 .pill--weak { color:var(--ink-muted); border-bottom-color:var(--line-strong); }
 .pill--rejected { color:var(--ink-muted); border-bottom-color:var(--ink-faint); }
 .pill--pending { color:var(--ink-faint); }
