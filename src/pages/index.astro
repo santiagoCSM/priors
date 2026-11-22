@@ -5,6 +5,13 @@ import { projects } from "../data/projects";
 import { fetchAllBoards } from "../lib/fetchBoard";
 
 const boards = await fetchAllBoards(projects);
+const failedBoards = boards.filter((board) => board.error);
+if (import.meta.env.PROD && failedBoards.length > 0) {
+  throw new Error(
+    "Se canceló el despliegue para conservar la versión anterior: " +
+    failedBoards.map((board) => board.project.name + " (" + board.error + ")").join("; ")
+  );
+}
 const validBoards = boards.filter((board) => !board.error);
 const evidenceRows = validBoards.flatMap((board) => board.rows);
 const pendingCount = evidenceRows.filter((row) => row.kind === "pending").length;
