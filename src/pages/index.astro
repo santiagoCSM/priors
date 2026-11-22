@@ -15,7 +15,9 @@ if (import.meta.env.PROD && failedBoards.length > 0) {
 const validBoards = boards.filter((board) => !board.error);
 const evidenceRows = validBoards.flatMap((board) => board.rows);
 const pendingCount = evidenceRows.filter((row) => row.kind === "pending").length;
-const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confirmed").length;
+const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confirmed" || row.kind === "confirmed-local").length;
+const consultedAt = new Date();
+const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" }).format(consultedAt);
 ---
 
 <BaseLayout
@@ -44,6 +46,15 @@ const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confir
       </div>
     </div>
   </header>
+
+  <nav class="page-index" aria-label="Índice de secciones">
+    <div class="page-index-inner">
+      <span class="page-index-heading" aria-hidden="true">ÍNDICE</span>
+      <a href="#metodologia"><span>01</span> Método</a>
+      <a href="#proyectos"><span>02</span> Investigaciones</a>
+      <a href="#estado"><span>03</span> Evidencia</a>
+    </div>
+  </nav>
 
   <main>
     <section id="metodologia" class="methodology" aria-labelledby="methodology-title">
@@ -84,8 +95,8 @@ const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confir
       </div>
       <div class="research-list">
         {
-          projects.map((p, index) => (
-            <article class="research-entry" aria-labelledby={`research-title-${p.slug}`}>
+          boards.map((board, index) => (
+            <article class="research-entry" aria-labelledby={`research-title-${board.project.slug}`}>
               <div class="research-index" aria-hidden="true">
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <span>ARTÍCULO</span>
@@ -93,13 +104,21 @@ const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confir
               <div class="research-content">
                 <div class="research-meta">
                   <span>Investigación cuantitativa</span>
-                  <span>Proyecto abierto</span>
+                  <span>{board.error ? "Registro no disponible" : "Registro documentado"}</span>
                 </div>
-                <h3 id={`research-title-${p.slug}`}>{p.name.replace(/_/g, " ")}</h3>
-                <p class="research-abstract">{p.description}</p>
+                <h3 id={`research-title-${board.project.slug}`}>{board.project.displayTitle || board.project.name.replace(/_/g, " ")}</h3>
+                <p class="research-code">REF / {board.project.name}</p>
+                <p class="research-abstract">{board.project.description}</p>
+                {!board.error && (
+                  <div class="research-observations" aria-label="Resumen de hipótesis">
+                    <span><strong>{board.rows.length}</strong> hipótesis registradas</span>
+                    <span><strong>{board.rows.filter((row) => row.kind === "confirmed-local").length}</strong> confirmadas localmente</span>
+                    <span><strong>{board.rows.filter((row) => row.kind === "pending").length}</strong> pendientes</span>
+                  </div>
+                )}
                 <div class="research-links">
-                  <a href={p.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
-                  <a href={`https://github.com/${p.repo}`} target="_blank" rel="noopener noreferrer">Ver repositorio <span aria-hidden="true">↗</span></a>
+                  <a href={board.project.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
+                  <a href={`https://github.com/${board.project.repo}`} target="_blank" rel="noopener noreferrer">Ver repositorio <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
             </article>
@@ -118,6 +137,12 @@ const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confir
           al construir esta página.
         </p>
       </div>
+      {validBoards.length > 0 && (
+        <p class="evidence-updated">
+          <span aria-hidden="true" class="evidence-updated-dot"></span>
+          Fuentes consultadas: <time datetime={consultedAt.toISOString()}>{consultedAtLabel} UTC</time>
+        </p>
+      )}
 
       {validBoards.length > 0 && (
         <div class="evidence-summary" aria-label="Resumen del estado de las investigaciones">
@@ -141,7 +166,8 @@ const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confir
           <div class="evidence-project-head">
             <div>
               <span class="evidence-project-kicker">REGISTRO {String(projectIndex + 1).padStart(2, "0")} / INVESTIGACIÓN</span>
-              <h3>{b.project.name.replace(/_/g, " ")}</h3>
+              <h3>{b.project.displayTitle || b.project.name.replace(/_/g, " ")}</h3>
+              <span class="evidence-project-ref">{b.project.name}</span>
             </div>
             <a
               href={`https://github.com/${b.project.repo}/blob/${b.project.branch}/${b.project.boardPath}`}
@@ -190,7 +216,7 @@ const reportedConfirmedCount = evidenceRows.filter((row) => row.kind === "confir
   </main>
 
   <footer>
-    Priors — <a href="https://github.com/nobodywhois0/priors">código fuente</a>.
+    Priors — <a href="https://github.com/santiagoCSM/priors">código fuente</a>.
     Cada proyecto vive en su propio repositorio; este sitio solo los indexa
     y agrega su estado.
   </footer>
