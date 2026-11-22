@@ -34,6 +34,9 @@ npm run build     # outputs to dist/
 
 Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds
 the site with Astro and publishes it to GitHub Pages.
+The same workflow also refreshes the linked `board.md` files every six hours
+(UTC) and can be started manually. If a linked board cannot be read, the
+build stops rather than replacing the published page with incomplete results.
 
 ## Linked projects
 
@@ -79,6 +82,9 @@ npm run build     # genera en dist/
 
 Los pushes a `main` disparan `.github/workflows/deploy.yml`, que
 construye el sitio con Astro y lo publica en GitHub Pages.
+El flujo también vuelve a consultar los archivos `board.md` cada seis horas
+(UTC) y permite ejecución manual. Si no se puede leer un registro, la
+compilación se detiene para no reemplazar el sitio con resultados incompletos.
 
 ## Proyectos conectados
 
