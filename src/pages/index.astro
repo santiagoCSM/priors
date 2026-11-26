@@ -21,199 +21,178 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
 ---
 
 <BaseLayout
-  title="Priors"
+  title="Priors · Investigación cuantitativa abierta"
   description="Investigación cuantitativa abierta y pre-registrada — metodología documentada antes de ver resultados, hallazgos positivos y negativos publicados por igual."
 >
-  <header class="masthead">
-    <div class="masthead-inner">
-      <div class="masthead-copy">
-        <h1 class="doc-title">Priors<span class="hero-period">.</span></h1>
-        <p class="hero-statement">Primero la hipótesis.<br /><em>Después la evidencia.</em></p>
+  <div class="docs-layout">
+    <nav class="page-index" aria-label="Secciones de Priors">
+      <p class="nav-label">Explorar Priors</p>
+      <a href="#inicio">Inicio</a>
+      <a href="#metodologia">Método</a>
+      <a href="#proyectos">Investigaciones</a>
+      <a href="#estado">Evidencia</a>
+    </nav>
+
+    <main id="contenido">
+      <header class="masthead" id="inicio">
+        <p class="eyebrow">Investigación cuantitativa abierta</p>
+        <h1>Primero la hipótesis.<br /><em>Después la evidencia.</em></h1>
         <p class="doc-subtitle">
-          Un espacio para poner a prueba ideas con reglas claras: cada proyecto define
-          su hipótesis, su referencia de comparación y sus criterios de éxito antes
-          de analizar los resultados. Los hallazgos se publican, confirmen o no lo esperado.
+          Cada proyecto de Priors define su hipótesis, su referencia de comparación
+          y sus criterios de éxito antes de analizar los datos. Publicamos los
+          hallazgos tanto si confirman la hipótesis como si no.
         </p>
         <div class="hero-actions">
-          <a class="hero-primary" href="#proyectos">Explorar investigaciones <span aria-hidden="true">↗</span></a>
-          <a class="hero-secondary" href="#estado">Consultar evidencia <span aria-hidden="true">↓</span></a>
+          <a class="hero-primary" href="#proyectos">Explorar investigaciones <span aria-hidden="true">↓</span></a>
+          <a href="#estado">Consultar evidencia <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="hero-footnote">Hipótesis claras <span aria-hidden="true">·</span> Métodos verificables <span aria-hidden="true">·</span> Resultados abiertos</p>
-      </div>
-      <div class="masthead-art">
-        <div class="hero-art-label"><span>FIG. 01</span><span>UNA DISTRIBUCIÓN, MUCHOS RESULTADOS</span></div>
         <GaussianCoaster />
-      </div>
-    </div>
-  </header>
+      </header>
 
-  <nav class="page-index" aria-label="Índice de secciones">
-    <div class="page-index-inner">
-      <span class="page-index-heading" aria-hidden="true">ÍNDICE</span>
-      <a href="#metodologia"><span>01</span> Método</a>
-      <a href="#proyectos"><span>02</span> Investigaciones</a>
-      <a href="#estado"><span>03</span> Evidencia</a>
-    </div>
-  </nav>
-
-  <main>
-    <section id="metodologia" class="methodology" aria-labelledby="methodology-title">
-      <div class="method-heading">
-        <div>
-          <div class="eyebrow">El método / 01—03</div>
-          <h2 id="methodology-title">Las reglas, antes que los resultados.</h2>
-        </div>
+      <section id="metodologia" class="methodology" aria-labelledby="methodology-title">
+        <h2 id="methodology-title">Las reglas, antes que los resultados.</h2>
         <p class="method-intro">
           Cada investigación sigue un proceso abierto: formular una pregunta,
           contrastarla con datos y mostrar lo encontrado, incluso cuando no confirma lo esperado.
         </p>
-      </div>
-      <ol class="method-grid">
-        <li class="method-step">
-          <span class="method-index">01 / PRE-REGISTRO</span>
-          <h3>Definir la hipótesis.</h3>
-          <p>Antes de analizar los datos, se documentan la pregunta, la referencia de comparación y los criterios de éxito.</p>
-        </li>
-        <li class="method-step">
-          <span class="method-index">02 / EVALUACIÓN</span>
-          <h3>Contrastar la evidencia.</h3>
-          <p>Se prueba la hipótesis mediante un procedimiento explícito y se registran las métricas, comparaciones y limitaciones.</p>
-        </li>
-        <li class="method-step">
-          <span class="method-index">03 / PUBLICACIÓN</span>
-          <h3>Publicar los resultados.</h3>
-          <p>Se comparten los hallazgos, el nivel de evidencia y los siguientes pasos, tanto si la hipótesis se sostiene como si no.</p>
-        </li>
-      </ol>
-    </section>
+        <ol class="method-grid">
+          <li class="method-step">
+            <span class="method-index">Pre-registro</span>
+            <h3>Definir la hipótesis.</h3>
+            <p>Antes de analizar los datos, se documentan la pregunta, la referencia de comparación y los criterios de éxito.</p>
+          </li>
+          <li class="method-step">
+            <span class="method-index">Evaluación</span>
+            <h3>Contrastar la evidencia.</h3>
+            <p>Se prueba la hipótesis mediante un procedimiento explícito y se registran las métricas, comparaciones y limitaciones.</p>
+          </li>
+          <li class="method-step">
+            <span class="method-index">Publicación</span>
+            <h3>Publicar los resultados.</h3>
+            <p>Se comparten los hallazgos, el nivel de evidencia y los siguientes pasos, tanto si la hipótesis se sostiene como si no.</p>
+          </li>
+        </ol>
+      </section>
 
-    <section id="proyectos" class="research-section" aria-labelledby="research-title">
-      <div class="eyebrow">Investigaciones / Índice</div>
-      <div class="research-heading">
-        <h2 id="research-title">Artículos de investigación</h2>
-        <p>Un registro abierto de hipótesis, métodos y resultados. Cada artículo tiene su propia investigación y repositorio de origen.</p>
-      </div>
-      <div class="research-list">
-        {
-          boards.map((board, index) => (
-            <article class="research-entry" aria-labelledby={`research-title-${board.project.slug}`}>
-              <div class="research-index" aria-hidden="true">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <span>ARTÍCULO</span>
-              </div>
-              <div class="research-content">
-                <div class="research-meta">
-                  <span>Investigación cuantitativa</span>
-                  <span>{board.error ? "Registro no disponible" : "Registro documentado"}</span>
-                </div>
-                <h3 id={`research-title-${board.project.slug}`}>{board.project.displayTitle || board.project.name.replace(/_/g, " ")}</h3>
-                <p class="research-code">REF / {board.project.name}</p>
-                <p class="research-abstract">{board.project.description}</p>
-                {!board.error && (
-                  <div class="research-observations" aria-label="Resumen de hipótesis">
-                    <span><strong>{board.rows.length}</strong> hipótesis registradas</span>
-                    <span><strong>{board.rows.filter((row) => row.kind === "confirmed-local").length}</strong> confirmadas localmente</span>
-                    <span><strong>{board.rows.filter((row) => row.kind === "pending").length}</strong> pendientes</span>
-                  </div>
-                )}
-                <div class="research-links">
-                  <a href={board.project.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
-                  <a href={`https://github.com/${board.project.repo}`} target="_blank" rel="noopener noreferrer">Ver repositorio <span aria-hidden="true">↗</span></a>
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <section id="estado" class="evidence-section" aria-labelledby="evidence-title">
-      <div class="eyebrow">Archivo / Evidencia</div>
-      <div class="evidence-heading">
-        <h2 id="evidence-title">Registro de hipótesis y resultados</h2>
-        <p>
-          Un índice de la evidencia documentada por cada investigación.
-          Los estados provienen del archivo <code>board.md</code> de cada repositorio
-          al construir esta página.
-        </p>
-      </div>
-      {validBoards.length > 0 && (
-        <p class="evidence-updated">
-          <span aria-hidden="true" class="evidence-updated-dot"></span>
-          Fuentes consultadas: <time datetime={consultedAt.toISOString()}>{consultedAtLabel} UTC</time>
-        </p>
-      )}
-
-      {validBoards.length > 0 && (
-        <div class="evidence-summary" aria-label="Resumen del estado de las investigaciones">
-          <div class="evidence-stat">
-            <span class="evidence-stat-value">{String(evidenceRows.length).padStart(2, "0")}</span>
-            <span class="evidence-stat-label">Hipótesis registradas</span>
-          </div>
-          <div class="evidence-stat">
-            <span class="evidence-stat-value">{String(reportedConfirmedCount).padStart(2, "0")}</span>
-            <span class="evidence-stat-label">Confirmaciones reportadas*</span>
-          </div>
-          <div class="evidence-stat">
-            <span class="evidence-stat-value">{String(pendingCount).padStart(2, "0")}</span>
-            <span class="evidence-stat-label">Hipótesis pendientes</span>
-          </div>
+      <section id="proyectos" class="research-section" aria-labelledby="research-title">
+        <div class="research-heading">
+          <h2 id="research-title">Artículos de investigación</h2>
+          <p>Un registro abierto de hipótesis, métodos y resultados. Cada artículo tiene su propia investigación y repositorio de origen.</p>
         </div>
-      )}
+        <div class="research-list">
+          {
+            boards.map((board) => (
+              <article class="research-entry" aria-labelledby={`research-title-${board.project.slug}`}>
+                <div class="research-content">
+                  <div class="research-meta">
+                    <span>{board.error ? "Registro no disponible" : "Registro documentado"}</span>
+                  </div>
+                  <h3 id={`research-title-${board.project.slug}`}>{board.project.displayTitle || board.project.name.replace(/_/g, " ")}</h3>
+                  <p class="research-code">REF / {board.project.name}</p>
+                  <p class="research-abstract">{board.project.description}</p>
+                  {!board.error && (
+                    <div class="research-observations" aria-label="Resumen de hipótesis">
+                      <span><strong>{board.rows.length}</strong> hipótesis registradas</span>
+                      <span><strong>{board.rows.filter((row) => row.kind === "confirmed-local").length}</strong> confirmadas localmente</span>
+                      <span><strong>{board.rows.filter((row) => row.kind === "pending").length}</strong> pendientes</span>
+                    </div>
+                  )}
+                  <div class="research-links">
+                    <a href={board.project.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
+                    <a href={`https://github.com/${board.project.repo}`} target="_blank" rel="noopener noreferrer">Ver repositorio <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
 
-      {boards.map((b, projectIndex) => (
-        <div class="evidence-project">
-          <div class="evidence-project-head">
-            <div>
-              <span class="evidence-project-kicker">REGISTRO {String(projectIndex + 1).padStart(2, "0")} / INVESTIGACIÓN</span>
-              <h3>{b.project.displayTitle || b.project.name.replace(/_/g, " ")}</h3>
-              <span class="evidence-project-ref">{b.project.name}</span>
+      <section id="estado" class="evidence-section" aria-labelledby="evidence-title">
+        <div class="evidence-heading">
+          <h2 id="evidence-title">Registro de hipótesis y resultados</h2>
+          <p>
+            Un índice de la evidencia documentada por cada investigación.
+            Los estados provienen del archivo <code>board.md</code> de cada repositorio
+            al construir esta página.
+          </p>
+        </div>
+        {validBoards.length > 0 && (
+          <p class="evidence-updated">
+            Fuentes consultadas: <time datetime={consultedAt.toISOString()}>{consultedAtLabel} UTC</time>
+          </p>
+        )}
+
+        {validBoards.length > 0 && (
+          <div class="evidence-summary" aria-label="Resumen del estado de las investigaciones">
+            <div class="evidence-stat">
+              <span class="evidence-stat-value">{String(evidenceRows.length).padStart(2, "0")}</span>
+              <span class="evidence-stat-label">Hipótesis registradas</span>
             </div>
-            <a
-              href={`https://github.com/${b.project.repo}/blob/${b.project.branch}/${b.project.boardPath}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >Consultar fuente original ↗</a>
+            <div class="evidence-stat">
+              <span class="evidence-stat-value">{String(reportedConfirmedCount).padStart(2, "0")}</span>
+              <span class="evidence-stat-label">Confirmaciones reportadas*</span>
+            </div>
+            <div class="evidence-stat">
+              <span class="evidence-stat-value">{String(pendingCount).padStart(2, "0")}</span>
+              <span class="evidence-stat-label">Hipótesis pendientes</span>
+            </div>
           </div>
-          {b.error ? (
-            <p class="evidence-error" role="status">
-              No se pudo consultar este registro durante la compilación ({b.error}).
-              Los resultados siguen disponibles en su repositorio de origen.
-            </p>
-          ) : (
-            <ol class="evidence-records">
-              {b.rows.map((row, index) => (
-                <li class="evidence-record">
-                  <div class="evidence-record-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-                  <div class="evidence-record-body">
-                    <div class="evidence-record-topline">
-                      <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
-                      <span class="evidence-level">NIVEL DE EVIDENCIA <strong>{row.nivel || "—"}</strong></span>
-                    </div>
-                    <h4>{row.hipotesis}</h4>
-                    {row.estado !== row.shortLabel && <p class="evidence-qualification">{row.estado}</p>}
-                    <div class="evidence-record-details">
-                      <div>
-                        <span class="evidence-detail-label">Evidencia clave</span>
-                        <p>{row.evidencia || "Sin evidencia publicada todavía."}</p>
+        )}
+
+        {boards.map((b) => (
+          <div class="evidence-project">
+            <div class="evidence-project-head">
+              <div>
+                <h3>{b.project.displayTitle || b.project.name.replace(/_/g, " ")}</h3>
+                <span class="evidence-project-ref">{b.project.name}</span>
+              </div>
+              <a
+                href={`https://github.com/${b.project.repo}/blob/${b.project.branch}/${b.project.boardPath}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >Consultar fuente original ↗</a>
+            </div>
+            {b.error ? (
+              <p class="evidence-error" role="status">
+                No se pudo consultar este registro durante la compilación ({b.error}).
+                Los resultados siguen disponibles en su repositorio de origen.
+              </p>
+            ) : (
+              <ol class="evidence-records">
+                {b.rows.map((row, index) => (
+                  <li class="evidence-record">
+                    <div class="evidence-record-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+                    <div class="evidence-record-body">
+                      <div class="evidence-record-topline">
+                        <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
+                        <span class="evidence-level">NIVEL DE EVIDENCIA <strong>{row.nivel || "—"}</strong></span>
                       </div>
-                      {row.proximoPaso && (
+                      <h4>{row.hipotesis}</h4>
+                      {row.estado !== row.shortLabel && <p class="evidence-qualification">{row.estado}</p>}
+                      <div class="evidence-record-details">
                         <div>
-                          <span class="evidence-detail-label">Próximo paso</span>
-                          <p>{row.proximoPaso}</p>
+                          <span class="evidence-detail-label">Evidencia clave</span>
+                          <p>{row.evidencia || "Sin evidencia publicada todavía."}</p>
                         </div>
-                      )}
+                        {row.proximoPaso && (
+                          <div>
+                            <span class="evidence-detail-label">Próximo paso</span>
+                            <p>{row.proximoPaso}</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          )}
-        </div>
-      ))}
-      <p class="evidence-disclaimer">* Las clasificaciones se muestran tal como las reporta cada investigación y no equivalen necesariamente a validación externa o definitiva. Si una hipótesis tiene confirmación local, sus reservas y limitaciones se detallan en el registro correspondiente.</p>
-    </section>
-  </main>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
+        ))}
+        <p class="evidence-disclaimer">* Las clasificaciones se muestran tal como las reporta cada investigación y no equivalen necesariamente a validación externa o definitiva. Si una hipótesis tiene confirmación local, sus reservas y limitaciones se detallan en el registro correspondiente.</p>
+      </section>
+    </main>
+  </div>
 
   <footer>
     Priors — <a href="https://github.com/santiagoCSM/priors">código fuente</a>.
@@ -221,3 +200,21 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
     y agrega su estado.
   </footer>
 </BaseLayout>
+
+<script>
+  const sectionLinks = document.querySelectorAll<HTMLAnchorElement>(".page-index a");
+
+  function updateCurrentSection() {
+    const current = location.hash || "#inicio";
+    for (const link of sectionLinks) {
+      if (link.hash === current) {
+        link.setAttribute("aria-current", "location");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    }
+  }
+
+  updateCurrentSection();
+  window.addEventListener("hashchange", updateCurrentSection);
+</script>

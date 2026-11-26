@@ -2,6 +2,8 @@
 
 *[Leer en español ↓](#priors-español)*
 
+[![Portada de Priors con el índice de secciones y la curva de Gauss](docs/priors-portada.png)](https://santiagocsm.github.io/priors/)
+
 A home for open, pre-registered quantitative research across topics.
 Each research project lives in its own repository, with its own data
 pipeline and its own published site — this repo is the index: it lists

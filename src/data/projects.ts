@@ -17,7 +17,7 @@ export const projects: Project[] = [
     description:
       "¿Existe un edge estadístico en la dirección de la vela de 5 minutos de BTC/USDT? Pre-registro, benchmarks Monte Carlo emparejados por volatilidad, corrección FDR.",
     repo: "santiagoCSM/btc_candles_research",
-    siteUrl: "https://nobodywhois0.github.io/btc_candles_research/",
+    siteUrl: "https://santiagocsm.github.io/btc_candles_research/",
     branch: "main",
     boardPath: "board.md",
   },
