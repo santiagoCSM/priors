@@ -32,7 +32,7 @@
 </div>
 
 <style>
-  .coaster-stage{width:100%;min-width:0;padding:clamp(12px,2.5vw,24px);background:#28303a;border-radius:16px;overflow:hidden;--coaster-cobalt:#b4c2d8;}
+  .coaster-stage{width:100%;min-width:0;padding:clamp(12px,2.5vw,24px);background:#28303a;overflow:hidden;--coaster-cobalt:#b4c2d8;}
   .coaster-svg{display:block;width:100%;height:auto;overflow:hidden;margin-top:10px;}
   .coaster-caption{display:flex;justify-content:space-between;gap:10px;color:#aeb9c9;font:10px/1.4 var(--font-mono,ui-monospace,monospace);letter-spacing:.035em;}
   .track{fill:none;stroke:#b4c2d8;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 7px rgba(180,194,216,.12));}
@@ -70,5 +70,5 @@
     .coaster-cart,.spark,.wind-arms{animation:none}
     .coaster-cart{offset-distance:50%}
   }
-  @media(max-width:640px){.coaster-stage{padding:8px;border-radius:12px}.coaster-caption{font-size:9px}}
+  @media(max-width:640px){.coaster-stage{padding:8px;}.coaster-caption{font-size:9px}}
 </style>
