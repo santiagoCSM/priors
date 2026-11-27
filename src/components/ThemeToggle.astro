@@ -26,8 +26,8 @@
 
     function updateIcon(theme) {
       var isDark = theme === "dark";
-      sun.hidden = !isDark;
-      moon.hidden = isDark;
+      sun.toggleAttribute("hidden", !isDark);
+      moon.toggleAttribute("hidden", isDark);
       var label = isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
       btn.setAttribute("aria-label", label);
       btn.title = label;
