@@ -6,7 +6,7 @@
     <defs><clipPath id="track-window"><rect x="50" y="-115" width="900" height="510" /></clipPath></defs>
     <line class="baseline" x1="50" y1="315" x2="950" y2="315"/>
     <path class="track-under" d="M 50 329 C 250 329 330 319 400 124 C 435 29 565 29 600 124 C 670 319 750 329 950 329"/>
-    <path class="track" d="M 50 315 C 250 315 330 305 400 110 C 435 15 565 15 600 110 C 670 305 750 315 950 315" fill="none" stroke="#e5e1d5"/>
+    <path class="track" d="M 50 315 C 250 315 330 305 400 110 C 435 15 565 15 600 110 C 670 305 750 315 950 315" fill="none" stroke="#e8d08c"/>
     <circle class="spark" cx="500" cy="17" r="3"/>
     <circle class="spark" cx="320" cy="278" r="2"/>
     <g clip-path="url(#track-window)">
@@ -32,18 +32,18 @@
 </div>
 
 <style>
-  .coaster-stage{width:100%;min-width:0;padding:clamp(12px,2.5vw,24px);background:#20201e;border-radius:16px;overflow:hidden;--coaster-yellow:#e5e1d5;}
+  .coaster-stage{width:100%;min-width:0;padding:clamp(12px,2.5vw,24px);background:#211f1b;border-radius:16px;overflow:hidden;--coaster-yellow:#e8d08c;}
   .coaster-svg{display:block;width:100%;height:auto;overflow:hidden;margin-top:10px;}
   .coaster-caption{display:flex;justify-content:space-between;gap:10px;color:#b5b2a9;font:10px/1.4 var(--font-mono,ui-monospace,monospace);letter-spacing:.035em;}
-  .track{fill:none;stroke:#e5e1d5;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 7px rgba(229,225,213,.2));}
-  .track-under{fill:none;stroke:#e5e1d5;stroke-width:1;opacity:.13;}
+  .track{fill:none;stroke:#e8d08c;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 7px rgba(229,225,213,.2));}
+  .track-under{fill:none;stroke:#e8d08c;stroke-width:1;opacity:.13;}
   .baseline{stroke:#55544e;stroke-dasharray:4 8;stroke-width:1;}
   .coaster-cart{
     offset-path:path('M 0 315 L 50 315 C 250 315 330 305 400 110 C 435 15 565 15 600 110 C 670 305 750 315 950 315 L 1000 315');
     offset-distance:0%;offset-rotate:auto;offset-anchor:0px 0px;
     animation:ride-gravity 5s linear infinite;
   }
-  .cart-shell{fill:#e5e1d5;stroke:#20201e;stroke-width:2;}
+  .cart-shell{fill:#e8d08c;stroke:#20201e;stroke-width:2;}
   .cart-rim{fill:none;stroke:#faf7ef;stroke-width:3;stroke-linecap:round;}
   .wheel{fill:#fff;stroke:#fff;stroke-width:1.5;}
   .stick{stroke:#f7f4e9;fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;}
@@ -55,7 +55,7 @@
     49%{transform:rotate(-22deg)}56%{transform:rotate(-20deg)}
     60%{transform:rotate(-15deg)}66.666%,100%{transform:rotate(-12deg)}
   }
-  .spark{fill:#e5e1d5;animation:blink 2s ease-in-out infinite;}
+  .spark{fill:#e8d08c;animation:blink 2s ease-in-out infinite;}
   .spark:nth-of-type(2){animation-delay:.8s;}
   /* 3.33 s de recorrido y 1.67 s fuera de escena; misma curva, 3 veces más rápido. */
   @keyframes ride-gravity{
