@@ -7,21 +7,21 @@
 
 :root {
   color-scheme: light dark;
-  --paper: light-dark(#f9f8f4, #171716);
-  --surface: light-dark(#f3efe5, #292823);
-  --ink: light-dark(#25231d, #f3f0e8);
-  --muted: light-dark(#5e5b50, #bcb7aa);
-  --line: light-dark(#dfdbcf, #454238);
-  --accent: light-dark(#8e6904, #eac862);
-  --accent-wash: light-dark(#f7edcd, #393220);
-  --accent-ink: light-dark(#fffdf7, #241d0a);
-  --header-glass: light-dark(rgba(249, 248, 244, .88), rgba(23, 23, 22, .8));
-  --glass-bg: light-dark(rgba(255, 255, 255, .62), rgba(48, 47, 42, .52));
-  --glass-sheen: light-dark(rgba(255, 255, 255, .78), rgba(255, 255, 255, .06));
-  --glass-border: light-dark(rgba(255, 255, 255, .94), rgba(250, 231, 184, .18));
-  --glass-hover-border: light-dark(rgba(185, 143, 36, .48), rgba(236, 199, 93, .43));
-  --glass-shadow: light-dark(rgba(79, 67, 32, .15), rgba(0, 0, 0, .38));
-  --gold-glow: light-dark(rgba(230, 188, 76, .15), rgba(228, 181, 72, .09));
+  --paper: light-dark(#f6f7fb, #171e2d);
+  --surface: light-dark(#e9edf8, #263148);
+  --ink: light-dark(#20283d, #f1f4ff);
+  --muted: light-dark(#66718c, #b9c5d9);
+  --line: light-dark(#ccd5ef, #43516a);
+  --accent: light-dark(#465dd2, #a9bbff);
+  --accent-wash: light-dark(#e5eafe, #283757);
+  --accent-ink: light-dark(#ffffff, #171e2d);
+  --header-glass: light-dark(rgba(246, 247, 251, .88), rgba(23, 30, 45, .84));
+  --glass-bg: light-dark(rgba(255, 255, 255, .62), rgba(39, 49, 72, .52));
+  --glass-sheen: light-dark(rgba(255, 255, 255, .65), rgba(255, 255, 255, .05));
+  --glass-border: light-dark(rgba(208, 217, 241, .88), rgba(176, 193, 241, .18));
+  --glass-hover-border: light-dark(rgba(70, 93, 210, .43), rgba(169, 187, 255, .43));
+  --glass-shadow: light-dark(rgba(42, 65, 112, .13), rgba(0, 0, 0, .38));
+  --cobalt-glow: light-dark(rgba(70, 93, 210, .07), rgba(103, 132, 223, .09));
   --negative: light-dark(#9c3327, #ffb3a7);
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: ui-monospace, monospace;
@@ -35,8 +35,7 @@
 body {
   margin: 0;
   background:
-    radial-gradient(ellipse 68% 45% at 92% 25%, var(--gold-glow), transparent 85%),
-    radial-gradient(ellipse 60% 42% at 8% 78%, var(--gold-glow), transparent 88%),
+    radial-gradient(ellipse 70% 46% at 92% 22%, var(--cobalt-glow), transparent 85%),
     var(--paper);
   color: var(--ink);
   font: 16px/1.65 var(--font-sans);
@@ -142,8 +141,8 @@ h1 em { color: var(--accent); font-style: normal; }
 }
 .hero-primary:hover { opacity: .88; }
 .masthead .coaster-stage {
-  background: radial-gradient(circle at 75% 14%, rgba(232, 200, 112, .12), transparent 54%), #211f1b;
-  border: 1px solid rgba(247, 225, 164, .16);
+  background: #20283d;
+  border: 1px solid rgba(169, 187, 255, .2);
   box-shadow: 0 18px 48px -36px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .05);
 }
 .masthead .coaster-svg { max-height: 280px; }
@@ -158,10 +157,10 @@ h4 { font-size: 18px; }
 .method-step, .research-entry, .evidence-record, .evidence-summary {
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  background: linear-gradient(140deg, var(--glass-sheen), transparent 54%), var(--glass-bg);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(18px) saturate(135%);
   backdrop-filter: blur(18px) saturate(135%);
-  box-shadow: 0 16px 42px -28px var(--glass-shadow), inset 0 1px 0 var(--glass-sheen);
+  box-shadow: 0 12px 32px -24px var(--glass-shadow), inset 0 1px 0 var(--glass-sheen);
   transition: border-color .24s ease, box-shadow .24s ease, transform .24s ease;
 }
 .method-step, .research-entry, .evidence-record {
@@ -170,7 +169,7 @@ h4 { font-size: 18px; }
 @media (hover: hover) {
   .method-step:hover, .research-entry:hover, .evidence-record:hover {
     border-color: var(--glass-hover-border);
-    box-shadow: 0 22px 44px -24px var(--glass-shadow), inset 0 1px 0 var(--glass-sheen);
+    box-shadow: 0 18px 38px -26px var(--glass-shadow), inset 0 1px 0 var(--glass-sheen);
     transform: translateY(-3px);
   }
 }
