@@ -1,20 +1,66 @@
 ---
 ---
-<button class="theme-toggle" aria-label="Cambiar entre modo claro y oscuro / Toggle light and dark mode">☾</button>
+<button class="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">
+  <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5 8.5 8.5 0 1 0 20.5 13.1Z" />
+  </svg>
+  <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+    <circle cx="12" cy="12" r="3.8" />
+    <path d="M12 2.5v2M12 19.5v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2.5 12h2m15 0h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+  </svg>
+</button>
 
 <script is:inline>
   (function () {
     var btn = document.currentScript.previousElementSibling;
-    var saved = localStorage.getItem("theme");
-    var effective = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    btn.textContent = effective === "dark" ? "☀" : "☾";
+    var moon = btn.querySelector(".theme-icon--moon");
+    var sun = btn.querySelector(".theme-icon--sun");
+    var systemTheme = matchMedia("(prefers-color-scheme: dark)");
+
+    function activeTheme() {
+      var selected = document.documentElement.getAttribute("data-theme");
+      return selected === "light" || selected === "dark"
+        ? selected
+        : systemTheme.matches ? "dark" : "light";
+    }
+
+    function updateIcon(theme) {
+      var isDark = theme === "dark";
+      sun.hidden = !isDark;
+      moon.hidden = isDark;
+      var label = isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+      btn.setAttribute("aria-label", label);
+      btn.title = label;
+    }
+
+    updateIcon(activeTheme());
+
     btn.addEventListener("click", function () {
-      var cur = document.documentElement.getAttribute("data-theme") ||
-        (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-      var next = cur === "dark" ? "light" : "dark";
+      var next = activeTheme() === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", next);
       localStorage.setItem("theme", next);
-      btn.textContent = next === "dark" ? "☀" : "☾";
+      updateIcon(next);
+    });
+
+    systemTheme.addEventListener("change", function () {
+      if (!document.documentElement.hasAttribute("data-theme")) {
+        updateIcon(activeTheme());
+      }
     });
   })();
 </script>
+
+<style>
+  .theme-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .theme-icon[hidden] { display: none; }
+</style>
