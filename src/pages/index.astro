@@ -144,7 +144,7 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
                 Los resultados siguen disponibles en su repositorio de origen.
               </p>
             ) : (
-              <ol class="evidence-records">
+              <ul class="evidence-records">
                 {b.rows.map((row) => (
                   <li class="evidence-record">
                     <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
@@ -168,7 +168,7 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
                     </details>
                   </li>
                 ))}
-              </ol>
+              </ul>
             )}
           </div>
         ))}
