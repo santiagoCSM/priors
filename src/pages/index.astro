@@ -83,24 +83,12 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
           {
             boards.map((board) => (
               <article class="research-entry" aria-labelledby={`research-title-${board.project.slug}`}>
-                <div class="research-content">
-                  <div class="research-meta">
-                    <span>{board.error ? "Registro no disponible" : "Registro documentado"}</span>
-                  </div>
-                  <h3 id={`research-title-${board.project.slug}`}>{board.project.displayTitle || board.project.name.replace(/_/g, " ")}</h3>
-                  <p class="research-code">REF / {board.project.name}</p>
-                  <p class="research-abstract">{board.project.description}</p>
-                  {!board.error && (
-                    <div class="research-observations" aria-label="Resumen de hipótesis">
-                      <span><strong>{board.rows.length}</strong> hipótesis registradas</span>
-                      <span><strong>{board.rows.filter((row) => row.kind === "confirmed-local").length}</strong> confirmadas localmente</span>
-                      <span><strong>{board.rows.filter((row) => row.kind === "pending").length}</strong> pendientes</span>
-                    </div>
-                  )}
-                  <div class="research-links">
-                    <a href={board.project.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
-                    <a href={`https://github.com/${board.project.repo}`} target="_blank" rel="noopener noreferrer">Ver repositorio <span aria-hidden="true">↗</span></a>
-                  </div>
+                <h3 id={`research-title-${board.project.slug}`}>{board.project.displayTitle || board.project.name.replace(/_/g, " ")}</h3>
+                <p class="research-abstract">{board.project.description}</p>
+                {board.error && <p class="research-unavailable">Registro no disponible</p>}
+                <div class="research-links">
+                  <a href={board.project.siteUrl} target="_blank" rel="noopener noreferrer">Leer investigación <span aria-hidden="true">↗</span></a>
+                  <a class="research-source" href={`https://github.com/${board.project.repo}`} target="_blank" rel="noopener noreferrer">Código fuente <span aria-hidden="true">↗</span></a>
                 </div>
               </article>
             ))
@@ -143,15 +131,12 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
         {boards.map((b) => (
           <div class="evidence-project">
             <div class="evidence-project-head">
-              <div>
-                <h3>{b.project.displayTitle || b.project.name.replace(/_/g, " ")}</h3>
-                <span class="evidence-project-ref">{b.project.name}</span>
-              </div>
+              <h3>{b.project.displayTitle || b.project.name.replace(/_/g, " ")}</h3>
               <a
                 href={`https://github.com/${b.project.repo}/blob/${b.project.branch}/${b.project.boardPath}`}
                 target="_blank"
                 rel="noopener noreferrer"
-              >Consultar fuente original ↗</a>
+              >Fuente original ↗</a>
             </div>
             {b.error ? (
               <p class="evidence-error" role="status">
@@ -160,17 +145,15 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
               </p>
             ) : (
               <ol class="evidence-records">
-                {b.rows.map((row, index) => (
+                {b.rows.map((row) => (
                   <li class="evidence-record">
-                    <div class="evidence-record-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-                    <div class="evidence-record-body">
-                      <div class="evidence-record-topline">
-                        <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
-                        <span class="evidence-level">NIVEL DE EVIDENCIA <strong>{row.nivel || "—"}</strong></span>
-                      </div>
-                      <h4>{row.hipotesis}</h4>
-                      {row.estado !== row.shortLabel && <p class="evidence-qualification">{row.estado}</p>}
+                    <span class={`pill pill--${row.kind}`}>{row.shortLabel}</span>
+                    <h4>{row.hipotesis}</h4>
+                    <details class="evidence-expand">
+                      <summary>Ver detalles</summary>
                       <div class="evidence-record-details">
+                        {row.estado !== row.shortLabel && <p class="evidence-qualification">{row.estado}</p>}
+                        {row.nivel && <p class="evidence-level">Nivel de evidencia: <strong>{row.nivel}</strong></p>}
                         <div>
                           <span class="evidence-detail-label">Evidencia clave</span>
                           <p>{row.evidencia || "Sin evidencia publicada todavía."}</p>
@@ -182,7 +165,7 @@ const consultedAtLabel = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium",
                           </div>
                         )}
                       </div>
-                    </div>
+                    </details>
                   </li>
                 ))}
               </ol>
